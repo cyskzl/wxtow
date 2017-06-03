@@ -119,7 +119,7 @@ EOT;
 EOT;
                     $time = time();
                     $msgtype = 'image';
-                    $mediaid = 'HMqPQ6if9l18ISY8k7fblAsVHCXyinnzACY7eJP_NNqOzBAxKPVYh-z6wFHyqJa3';
+                    $mediaid = '51GEMtBhYpTjwh3iD-vvQS9l0kDhhEdOE_wF6T2NFwyS0wLmZvNhBZPZSMdhqFlV';
 
                     $retStr = sprintf($textTpl, $fromusername, $tousername, $time, $msgtype, $mediaid);
                     echo $retStr;
