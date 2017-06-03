@@ -28,7 +28,7 @@ class wxModel
         $data = array(
             'xml' => $postStr,
         );
-        $database->insert('xml', $data);
+        $database->insert('test', $data);
 
         if (!empty($postStr)) {
             /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,

@@ -4,10 +4,10 @@ include './vendor/autoload.php';
 $database = new \Medoo\Medoo([
     // 必须配置项
     'database_type' => 'mysql',
-    'database_name' => 'wechat',
+    'database_name' => 'lamp27',
     'server' => 'localhost',
-    'username' => 'root',
-    'password' => 'root',
+    'username' => 'yang',
+    'password' => 'yang',
     'charset' => 'utf8',
 
     // 可选参数
