@@ -20,8 +20,9 @@ class wxModel
     {
         // < 5.6       $GLOBALS
         // PHP > 7.0   file_get_contents()
-        // file_put_contents('data.txt', $postStr);
-        $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];          // POST数据
+       // $postStr =  file_put_contents('data.txt', $postStr);
+        //$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];          // POST数据
+	$postStr = file_get_contents('php://input');
 
         // 使用 Medoo 类 把xml数据写入数据库
         include './db.php';
