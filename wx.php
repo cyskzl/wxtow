@@ -1,5 +1,6 @@
 <?php
 include './wxModel.php';
+include './emenu.php';
 //define your token
 define("TOKEN", "yangyang");
 $wechatObj = new wxModel();

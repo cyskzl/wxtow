@@ -44,6 +44,49 @@ class wxModel
             $fromusername = $postObj->FromUserName;
             $msgtype = $postObj->MsgType;
             $keyword = trim($postObj->Content);
+			$eventkey = $postObj->EventKey;
+			
+			
+			if($msgtype == 'event'){
+				
+					switch($eventkey){
+						case "课程表":
+						
+						$content = "现在的课程是微信开发";
+						break;
+						case "个人信息":
+						
+						$content = "请把性别名字年龄留下再走";
+						break;
+						case "平时成绩":
+						$content = '你的成绩也就刚刚差不多及格';
+						break;
+						case "奖惩记录":
+						$content = '请问得过什么奖？？？？？';
+						break;
+						case "移动WEB开发":
+						$content = '技术';
+						break;
+						case "subscribe":
+						$content = "欢迎来到PHP27，请输入美女，查看图片(有效期仅限今天)";
+					}
+				
+				   $textTpl = "<xml>
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <Content><![CDATA[%s]]></Content>
+                            <FuncFlag>0</FuncFlag>
+                            </xml>";
+                    $time = time();
+                    $msgtype = 'text';
+                    
+                    $retStr = sprintf($textTpl, $fromusername, $tousername, $time, $msgtype, $content);
+                    echo $retStr;
+			}
+			
+			
 
             // 图文  -》 返回图文列表    其他任何关键   默认
             if ($msgtype == 'text') {
@@ -120,7 +163,7 @@ EOT;
 EOT;
                     $time = time();
                     $msgtype = 'image';
-                    $mediaid = '51GEMtBhYpTjwh3iD-vvQS9l0kDhhEdOE_wF6T2NFwyS0wLmZvNhBZPZSMdhqFlV';
+                    $mediaid = 'swP-WuoJ3knjx0_-iFwNSHiWzCT71xvnTOGjZd9KvoPt_4GkOrd_NXwfL04gS41-';
 
                     $retStr = sprintf($textTpl, $fromusername, $tousername, $time, $msgtype, $mediaid);
                     echo $retStr;
@@ -128,28 +171,30 @@ EOT;
             }
 
             // 判断是否发生了事件推送
-            if ($msgtype == 'event') {
-                $event = $postObj->Event;
-                // 订阅事件
-                if ($event == 'subscribe')
-                {
-                    // 订阅后，发送的文本消息
-                    $textTpl = "<xml>
-                            <ToUserName><![CDATA[%s]]></ToUserName>
-                            <FromUserName><![CDATA[%s]]></FromUserName>
-                            <CreateTime>%s</CreateTime>
-                            <MsgType><![CDATA[%s]]></MsgType>
-                            <Content><![CDATA[%s]]></Content>
-                            <FuncFlag>0</FuncFlag>
-                            </xml>";
-                    $time = time();
-                    $msgtype = 'text';
-                    $content = "欢迎来到PHP27，请输入美女，查看图片(有效期仅限今天)";
+            //if ($msgtype == 'event') {
+            //    $event = $postObj->Event;
+            //    // 订阅事件
+            //    if ($event == 'subscribe')
+            //    {
+            //        // 订阅后，发送的文本消息
+            //        $textTpl = "<xml>
+            //                <ToUserName><![CDATA[%s]]></ToUserName>
+            //                <FromUserName><![CDATA[%s]]></FromUserName>
+            //                <CreateTime>%s</CreateTime>
+            //                <MsgType><![CDATA[%s]]></MsgType>
+            //                <Content><![CDATA[%s]]></Content>
+            //                <FuncFlag>0</FuncFlag>
+            //                </xml>";
+            //        $time = time();
+            //        $msgtype = 'text';
+            //        $content = "欢迎来到PHP27，请输入美女，查看图片(有效期仅限今天)";
 
-                    $retStr = sprintf($textTpl, $fromusername, $tousername, $time, $msgtype, $content);
-                    echo $retStr;
-                }
-            }
+            //        $retStr = sprintf($textTpl, $fromusername, $tousername, $time, $msgtype, $content);
+            //        echo $retStr;
+            //    }
+            //}
+			
+			//if()
 
             $time = time();
             $msgtype = $postObj->MsgType;
@@ -247,6 +292,28 @@ EOT;
 
         return $ret;
     }
+	
+	public function postData($url,$data)
+	{
+		    //初始化  
+    $curl = curl_init();  
+    //设置抓取的url  
+    curl_setopt($curl, CURLOPT_URL, $url);  
+    //设置头文件的信息作为数据流输出  
+    curl_setopt($curl, CURLOPT_HEADER, 1);  
+    //设置获取的信息以文件流的形式返回，而不是直接输出。  
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);  
+    //设置post方式提交  
+    curl_setopt($curl, CURLOPT_POST, 1);  
+    
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data);  
+    //执行命令  
+    $ret = curl_exec($curl);  
+    //关闭URL请求  
+    curl_close($curl);  
+    //显示获得的数据  
+    return $ret;  
+	}
 
     /*
      * JSON 转化为数组
